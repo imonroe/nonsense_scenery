@@ -72,7 +72,7 @@
       });
 
       $(function () {
-        if (checkCookie()) {
+        if (checkCookie() === true) {
             alert('Cookie is set.');
             $("#video").hide();
             $("#initialButton").hide();
