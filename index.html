@@ -93,7 +93,7 @@
       function playbackComplete() {
         $("#video").hide();
         $("#afterPlayback").show();
-        const d = new Date("2023-12-25T00:00:01");
+        const d = new Date("2023-12-26T00:00:01");
         let expires = "expires="+d.toUTCString();
         document.cookie = "holiday_greeting_shown=true;" + expires + ";path=/";
       }
