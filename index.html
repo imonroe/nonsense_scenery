@@ -18,14 +18,16 @@
   <body>
     <div class="container" id="initialButton">
       <div class="row">
-        <h2>Make sure to use landscape mode for maximum holiday spirit!</h2>
-        <button
-          id="initializeInteraction"
-          style="margin-left: auto; margin-right: auto; margin-top: 3em"
-          class="btn btn-primary"
-        >
-          Click for your holiday greeting!
-        </button>
+        <div class="col-xs-1 text-center" style="margin-top: 4em">
+          <h2>Make sure to use landscape mode for maximum holiday spirit!</h2>
+          <button
+            id="initializeInteraction"
+            style="margin-left: auto; margin-right: auto; margin-top: 3em"
+            class="btn btn-primary"
+          >
+            Click for your personalized holiday greeting!
+          </button>
+        </div>
       </div>
     </div>
 
@@ -36,8 +38,8 @@
 
     <div class="container" id="afterPlayback">
       <div class="row">
-        <div>
-            <h1>Happy Holidays from Morgan and Jen!</h1>
+        <div class="col-xs-1 text-center" style="margin-top: 4em">
+          <h1>Happy Holidays from Morgan and Jen!</h1>
         </div>
       </div>
     </div>
@@ -65,20 +67,52 @@
         playVideo();
       });
 
-      $("#unmuteButton").click(function(){
+      $("#unmuteButton").click(function () {
         video.muted = false;
       });
 
       $(function () {
-        $("#video").hide();
-        $("#initialButton").show();
-        $("#unmuteButton").hide();
-        $("#afterPlayback").hide();
+        if (checkCookie()) {
+            alert('Cookie is set.');
+            $("#video").hide();
+            $("#initialButton").hide();
+            $("#unmuteButton").hide();
+            $("#afterPlayback").show();
+        } else {
+            $("#video").hide();
+            $("#initialButton").show();
+            $("#unmuteButton").hide();
+            $("#afterPlayback").hide();
+        }
       });
 
       function playbackComplete() {
         $("#video").hide();
         $("#afterPlayback").show();
+        document.cookie = "holiday_greeting_shown=true";
+      }
+
+      function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      function checkCookie() {
+        let check = getCookie("holiday_greeting_shown");
+        if (check != "") {
+            return false;
+        }
+        return true;
       }
 
       function playVideo() {
@@ -88,7 +122,9 @@
             .then((_) => {
               console.log("Autoplay started");
               document.getElementById("unmuteButton").click();
-              document.getElementById("video").addEventListener('ended',playbackComplete,false);
+              document
+                .getElementById("video")
+                .addEventListener("ended", playbackComplete, false);
             })
             .catch((error) => {
               console.log("Autoplay did not start.");
