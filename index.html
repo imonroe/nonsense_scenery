@@ -15,37 +15,43 @@
 
     <title>Happy Holidays!</title>
   </head>
-  <body>
-    <div class="container" id="initialButton">
-      <div class="row">
-        <div class="col-xs-1 text-center" style="margin-top: 4em">
-          <h2>Make sure to use landscape mode for maximum holiday spirit!</h2>
+  <body style="min-width: 100vw; min-height: 100vh;">
+    <div class="container-fluid" id="initialButton" style="min-height: 100%; min-width: 100%; text-align: center; margin-top: 3rem;">
+          <h2 style="text-align: center;">Make sure to use landscape mode for maximum holiday spirit!</h2>
           <button
             id="initializeInteraction"
-            style="margin-left: auto; margin-right: auto; margin-top: 3em"
+            style="margin-left: auto; margin-right: auto; margin-top: 3em; width: 75%;"
             class="btn btn-primary"
           >
             Click for your personalized holiday greeting!
           </button>
-        </div>
+    </div>
+
+    <div class="container-fluid" id="videoPlayer" style="min-height: 100%; min-width: 100%; text-align: center; background-color: black;">
+      <div class="row" style="min-height: 100%; min-width: 100%; text-align: center;">
+          <video
+            id="video"
+            autoplay
+            style="width: 100vw; height: 100vh"
+            playsinline
+            muted
+          >
+            <source src="./media/Virus_Card_Video01.mp4" />
+            <p>Your browser does not support video playback.</p>
+          </video>
+        <button id="unmuteButton"></button>
       </div>
     </div>
 
-    <video id="video" autoplay style="width: 100vh; height: 100vh; min-height: 100%; max-height: 100%;" playsinline muted>
-      <source src="./media/Virus_Card_Video01.mp4" />
-      <p>Your browser does not support video playback.</p>
-    </video>
-    <button id="unmuteButton"></button>
+    <div class="container-fluid" id="afterPlayback" style="min-height: 100%; min-width: 100%; text-align: center;">
+      <div class="row" style="margin-top: 2em; text-align: center;">
 
-    <div class="container" id="afterPlayback">
-      <div class="row">
-        <div class="col-xs-1 text-center" style="margin-top: 2em">
           <h1>Happy Holidays for 2023 from Morgan and Jen!</h1>
           <img
             src="./media/406500989_10168707370045691_6091406763918635230_n.png"
-            style="max-width: 50%; max-height: 50%"
+            style="max-width: 50%; max-height: 50%; margin-left: auto; margin-right: auto;"
           />
-        </div>
+
       </div>
     </div>
 
@@ -67,7 +73,7 @@
 
     <script type="text/javascript">
       $("#initializeInteraction").click(function () {
-        $("#video").show();
+        $("#videoPlayer").show();
         $("#initialButton").hide();
         playVideo();
       });
@@ -78,12 +84,12 @@
 
       $(function () {
         if (checkCookie() === true) {
-          $("#video").hide();
+          $("#videoPlayer").hide();
           $("#initialButton").hide();
           $("#unmuteButton").hide();
           $("#afterPlayback").show();
         } else {
-          $("#video").hide();
+          $("#videoPlayer").hide();
           $("#initialButton").show();
           $("#unmuteButton").hide();
           $("#afterPlayback").hide();
@@ -91,10 +97,10 @@
       });
 
       function playbackComplete() {
-        $("#video").hide();
+        $("#videoPlayer").hide();
         $("#afterPlayback").show();
         const d = new Date("2023-12-26T00:00:01");
-        let expires = "expires="+d.toUTCString();
+        let expires = "expires=" + d.toUTCString();
         document.cookie = "holiday_greeting_shown=true;" + expires + ";path=/";
       }
 
