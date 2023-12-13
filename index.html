@@ -40,6 +40,7 @@
       <div class="row">
         <div class="col-xs-1 text-center" style="margin-top: 4em">
           <h1>Happy Holidays from Morgan and Jen!</h1>
+          <img src="./media/406500989_10168707370045691_6091406763918635230_n.png" style="width: fit-content;"/>
         </div>
       </div>
     </div>
@@ -110,9 +111,9 @@
       function checkCookie() {
         let check = getCookie("holiday_greeting_shown");
         if (check != "") {
-            return false;
+            return true;
         }
-        return true;
+        return false;
       }
 
       function playVideo() {
