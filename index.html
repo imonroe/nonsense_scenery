@@ -15,7 +15,7 @@
 
     <title>Happy Holidays!</title>
   </head>
-  <body onload="playVideo()">
+  <body>
     <div class="container" id="initialButton">
       <div class="row">
         <button
@@ -72,8 +72,14 @@
         $("#video").hide();
         $("#initialButton").show();
         $("#unmuteButton").hide();
+        $("#afterPlayback").hide();
         alert("Use landscape mode for the most holiday spirit!");
       });
+
+      function playbackComplete() {
+        $("#video").hide();
+        $("#afterPlayback").show();
+      }
 
       function playVideo() {
         var promise = document.querySelector("video").play();
@@ -82,6 +88,7 @@
             .then((_) => {
               console.log("Autoplay started");
               document.getElementById("unmuteButton").click();
+              document.getElementById("video").addEventListener('ended',playbackComplete,false);
             })
             .catch((error) => {
               console.log("Autoplay did not start.");
